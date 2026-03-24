@@ -26,9 +26,22 @@
             <p style="color: var(--text-muted); margin-top: 1rem;">Daftar lengkap proyek yang pernah saya kerjakan.</p>
         </div>
 
+        <div class="search-filter-container">
+            <div class="search-box glass">
+                <input type="text" id="project-search" placeholder="Cari proyek (nama atau deskripsi)..." autocomplete="off">
+            </div>
+            <div class="filter-tags" id="filter-tags">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                <button class="filter-btn" data-filter="laravel">Laravel</button>
+                <button class="filter-btn" data-filter="php">PHP</button>
+                <button class="filter-btn" data-filter="vue.js">Vue.js</button>
+                <button class="filter-btn" data-filter="yii2">Yii2</button>
+            </div>
+        </div>
+
         <div class="projects-grid">
             <!-- Project 1 -->
-            <div class="project-card glass">
+            <div class="project-card glass" data-tech="laravel, vue.js, mysql">
                 <h3>Dealer Management System</h3>
                 <p>Mengembangkan sistem Dealer Management System (DMS) berbasis web menggunakan Laravel 11 dan Vue.js untuk mengelola operasional dealer otomotif secara end-to-end.</p>
                 <div class="project-tech">
@@ -39,7 +52,7 @@
             </div>
 
             <!-- Project 2 -->
-            <div class="project-card glass">
+            <div class="project-card glass" data-tech="laravel, seo, cms">
                 <h3>Hariane</h3>
                 <p>Membangun platform portal berita digital yang komprehensif menggunakan framework Laravel dengan fitur CMS multi-user dan optimasi SEO otomatis.</p>
                 <div class="project-tech">
@@ -50,7 +63,7 @@
             </div>
 
             <!-- Project 3 -->
-            <div class="project-card glass">
+            <div class="project-card glass" data-tech="laravel, livewire, fonnte api">
                 <h3>Manajemen Panti Asuhan</h3>
                 <p>Sistem manajemen operasional panti asuhan (LKSA) berbasis PHP (Laravel) dan Livewire yang mengintegrasikan pendataan anak asuh dan donatur.</p>
                 <div class="project-tech">
@@ -61,7 +74,7 @@
             </div>
 
             <!-- Project 4 -->
-            <div class="project-card glass">
+            <div class="project-card glass" data-tech="php, laravel, midtrans, vite">
                 <h3>APSINDO</h3>
                 <p>Sistem manajemen keanggotaan terintegrasi untuk portal asosiasi. Memfasilitasi pendaftaran mandiri dan pembayaran iuran otomatis.</p>
                 <div class="project-tech">
@@ -73,7 +86,7 @@
             </div>
 
             <!-- Project 5 -->
-            <div class="project-card glass">
+            <div class="project-card glass" data-tech="php, yii2, mariadb, pnr integration">
                 <h3>SIM Penjualan & Pemasaran (Travel & Tour)</h3>
                 <p>Sistem manajemen operasional agen perjalanan yang mencakup modul transaksi tiket, hotel, dan paket tour dengan otomatisasi pembacaan PNR.</p>
                 <div class="project-tech">
@@ -95,24 +108,68 @@
     </footer>
 
     <script>
+        // Intersection Observer for initial animations
         const observerOptions = {
             threshold: 0.1
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && entry.target.style.display !== 'none') {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.glass').forEach(el => {
+        document.querySelectorAll('.project-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.8s ease-out';
+            el.style.transition = 'all 0.5s ease-out';
             observer.observe(el);
+        });
+
+        // Project Filtering Logic
+        const searchInput = document.getElementById('project-search');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        function filterProjects() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+
+            projectCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                const tech = card.dataset.tech.toLowerCase();
+                
+                const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+                const matchesFilter = activeFilter === 'all' || tech.includes(activeFilter);
+
+                if (matchesSearch && matchesFilter) {
+                    card.style.display = 'flex';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 400);
+                }
+            });
+        }
+
+        searchInput.addEventListener('input', filterProjects);
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterProjects();
+            });
         });
     </script>
 </body>
