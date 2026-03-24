@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semua Proyek | Baharudin Abdulloh Mun'im</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="glass">
+        <div class="logo">Baharudin.</div>
+        <div class="nav-links">
+            <a href="index.html#home">Home</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#experience">Experience</a>
+            <a href="index.html#projects" class="active">Projects</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="container" style="padding-top: 10rem;">
+        <div class="section-title">
+            <h2>Semua Proyek</h2>
+            <div class="underline"></div>
+            <p style="color: var(--text-muted); margin-top: 1rem;">Daftar lengkap proyek yang pernah saya kerjakan.</p>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card glass">
+                <h3>Dealer Management System</h3>
+                <p>Mengembangkan sistem Dealer Management System (DMS) berbasis web menggunakan Laravel 11 dan Vue.js untuk mengelola operasional dealer otomotif secara end-to-end.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">Laravel 11</span>
+                    <span class="tech-pill">Vue.js</span>
+                    <span class="tech-pill">MySQL</span>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card glass">
+                <h3>Hariane</h3>
+                <p>Membangun platform portal berita digital yang komprehensif menggunakan framework Laravel dengan fitur CMS multi-user dan optimasi SEO otomatis.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">Laravel</span>
+                    <span class="tech-pill">SEO</span>
+                    <span class="tech-pill">CMS</span>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card glass">
+                <h3>Manajemen Panti Asuhan</h3>
+                <p>Sistem manajemen operasional panti asuhan (LKSA) berbasis PHP (Laravel) dan Livewire yang mengintegrasikan pendataan anak asuh dan donatur.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">Laravel</span>
+                    <span class="tech-pill">Livewire</span>
+                    <span class="tech-pill">Fonnte API</span>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card glass">
+                <h3>APSINDO</h3>
+                <p>Sistem manajemen keanggotaan terintegrasi untuk portal asosiasi. Memfasilitasi pendaftaran mandiri dan pembayaran iuran otomatis.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">PHP</span>
+                    <span class="tech-pill">Laravel</span>
+                    <span class="tech-pill">Midtrans</span>
+                    <span class="tech-pill">Vite</span>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-card glass">
+                <h3>SIM Penjualan & Pemasaran (Travel & Tour)</h3>
+                <p>Sistem manajemen operasional agen perjalanan yang mencakup modul transaksi tiket, hotel, dan paket tour dengan otomatisasi pembacaan PNR.</p>
+                <div class="project-tech">
+                    <span class="tech-pill">PHP 8.1</span>
+                    <span class="tech-pill">Yii2</span>
+                    <span class="tech-pill">MariaDB</span>
+                    <span class="tech-pill">PNR Integration</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem; margin-bottom: 4rem;">
+            <a href="index.html#projects" class="btn btn-secondary">&larr; Kembali ke Beranda</a>
+        </div>
+    </section>
+
+    <footer class="container" style="padding: 4rem 0; text-align: center; border-top: 1px solid var(--glass-border);">
+        <p>&copy; 2026 Baharudin Abdulloh Mun'im. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.glass').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
